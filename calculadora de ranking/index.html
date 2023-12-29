@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de partidas ranqueadas</title>
+</head>
+<body>
+  <h1>Calculadora de partidas ranqueadas</h1>
+
+  <form action="#">
+    <label for="nome">Nome:</label>
+    <input type="text" name="nome" id="nome">
+
+    <label for="vitorias">Vitórias:</label>
+    <input type="number" name="vitorias" id="vitorias">
+
+    <label for="derrotas">Derrotas:</label>
+    <input type="number" name="derrotas" id="derrotas">
+
+    <button type="submit">Confirmar</button>
+  </form>
+
+  <p id="resultado"></p>
+
+  <script>
+    // Função para calcular o saldo de vitórias
+    function calcularSaldoVitorias(vitorias, derrotas) {
+      return vitorias - derrotas;
+    }
+
+    // Função para calcular o nível do jogador
+    function calcularNivel(vitorias) {
+      if (vitorias < 10) {
+        return "Ferro";
+      } else if (vitorias <= 20) {
+        return "Bronze";
+      } else if (vitorias <= 50) {
+        return "Prata";
+      } else if (vitorias <= 80) {
+        return "Ouro";
+      } else if (vitorias <= 90) {
+        return "Diamante";
+      } else if (vitorias <= 100) {
+        return "Lendário";
+      } else {
+        return "Imortal";
+      }
+    }
+
+    // Evento de clique do botão "Confirmar"
+    document.querySelector('form').addEventListener('submit', (event) => {
+      // Declaração das variáveis nome, vitorias e derrotas
+      const nome = document.querySelector('input[name="nome"]').value;
+      const vitorias = parseInt(document.querySelector('input[name="vitorias"]').value);
+      const derrotas = parseInt(document.querySelector('input[name="derrotas"]').value);
+
+      // Chamada da função para calcular o saldo de vitórias
+      const saldoVitorias = calcularSaldoVitorias(vitorias, derrotas);
+
+      // Chamada da função para calcular o nível do jogador
+      const nivel = calcularNivel(vitorias);
+
+      // Exibição do resultado no elemento HTML
+      document.querySelector('#resultado').textContent = `O Herói ${nome} tem de saldo de **${saldoVitorias}** está no nível de **${nivel}**`;
+
+      // Impede o envio do formulário
+      event.preventDefault();
+    });
+  </script>
+</body>
+</html>
